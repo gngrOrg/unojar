@@ -3,6 +3,9 @@ UnoJar
 
 A single-jar packaging system. Compared to other solutions, this one is a little more complicated, but aims to be more performant.
 
+We developed this to package [gngr](https://gngr.info) as a single runnable jar that includes all dependencies, is high
+performance and yet allows sandboxing of the dependencies.
+
 `UnoJar` has a custom classloader that loads classes and resources from jars accompanying inside its own archive.
 The jars are decompressed at build-time, improving performance at run-time.
 
