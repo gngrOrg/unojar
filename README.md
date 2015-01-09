@@ -17,7 +17,7 @@ Someday this will be automated. But for now, here's a description of the manual 
 * Create a directory called `app/`
 * Explode the uno distribution into `app/`.
 * Explode the application's jars and dependency jars into separated sub-directories under `app/`. The sub-directories
-    should have a prefix: ```uno$$$``.
+    should have a prefix: `uno$$$`.
 * Create a file called `app/unoConfig` which lists the jars and the entry point.
 
 `TODO`: Add details about `unoConfig` syntax.
