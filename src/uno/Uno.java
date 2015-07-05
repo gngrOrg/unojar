@@ -151,13 +151,12 @@ public final class Uno extends ClassLoader {
           // System.out.println("  resource not found : " + name);
           return null;
         } else {
-          // TODO:
-          /*
-           * try { final URL zipURL = new URL(null, "zipentry://uno/" +
-           * unoPaths[index] + name , new UnoStreamHandler()); return zipURL; }
-           * catch (MalformedURLException e) { throw new RuntimeException(e); }
-           */
-          return null;
+          try { 
+            final URL zipURL = new URL(null, "zipentry://uno/" + unoPaths[index] + name , new UnoStreamHandler());
+            return zipURL;
+          } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+          }
         }
       }
     });
@@ -188,13 +187,18 @@ public final class Uno extends ClassLoader {
 
         InputStream stream = null;
         int pathIndex = -1;
-        for (int i = 0; i < unoPaths.length; i++) {
-          final String resourcePath = unoPaths[i] + path;
-          // System.out.println("  Trying resourcePath : " + resourcePath);
-          stream = getClass().getResourceAsStream(resourcePath);
-          if (stream != null) {
-            pathIndex = i;
-            break;
+        if (path.startsWith("//uno$$$")) {
+          String newPath = path.substring(1);
+          stream = getClass().getResourceAsStream(newPath);
+        } else {
+          for (int i = 0; i < unoPaths.length; i++) {
+            final String resourcePath = unoPaths[i] + path;
+            // System.out.println("  Trying resourcePath : " + resourcePath);
+            stream = getClass().getResourceAsStream(resourcePath);
+            if (stream != null) {
+              pathIndex = i;
+              break;
+            }
           }
         }
         if (stream == null) {
